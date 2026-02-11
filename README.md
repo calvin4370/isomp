@@ -1,13 +1,6 @@
 # ISOMP
 
-Inclusive Social Media Platform monorepo.
-
-## Monorepo layout
-
-- `apps/web` - React 18 + Vite frontend (Tailwind, Zustand, Axios, Lucide).
-- `apps/api` - FastAPI backend (Pydantic schemas, core endpoints).
-- `packages/shared-contracts` - lightweight API payload contract artifacts.
-- `docs` - hackathon runbook and delivery notes.
+An Inclusive Social Media Platform.
 
 ## Quick start
 
@@ -25,15 +18,6 @@ npm run web:dev
 
 Frontend runs on `http://localhost:5173`.
 
-### Teammate video mode (web only, fastest)
-
-If your team only needs to record the UI flow:
-
-```bash
-npm install
-npm run web:dev
-```
-
 The web app includes fallback demo data and can run even if backend is not running.
 
 ### 3) Run backend (separate terminal)
@@ -45,13 +29,6 @@ python -m uvicorn apps.api.app.main:app --reload --app-dir .
 
 Backend runs on `http://localhost:8000`.
 
-## Available scripts
-
-- `npm run web:dev` - start frontend dev server.
-- `npm run web:build` - build frontend.
-- `npm run web:lint` - lint frontend.
-- `npm run api:dev` - start backend with uvicorn.
-- `npm run api:check` - compile-check backend Python files.
 
 ## API endpoints
 
