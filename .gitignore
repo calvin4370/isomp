@@ -8,3 +8,4 @@ __pycache__/
 .venv/
 apps/web/.env
 apps/web/.env.local
+apps/api/app/data/*.db

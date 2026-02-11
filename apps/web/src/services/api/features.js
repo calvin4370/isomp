@@ -10,6 +10,25 @@ export async function getFeed() {
   }
 }
 
+export async function createPost(payload) {
+  try {
+    const { data } = await apiClient.post('/posts', payload)
+    return data
+  } catch {
+    return {
+      id: `post-${Date.now()}`,
+      author: payload.author,
+      channel: payload.channel,
+      caption: payload.caption,
+      transcript: payload.transcript,
+      imageDescription: payload.imageDescription,
+      likes: 0,
+      comments: 0,
+      shares: 0,
+    }
+  }
+}
+
 export async function getRecommendations(abilities) {
   try {
     const { data } = await apiClient.post('/onboarding/recommendations', { abilities })
@@ -32,5 +51,23 @@ export async function transcribeMedia(mediaId) {
     return data.transcript
   } catch {
     return 'This is a local fallback transcript generated for demo mode.'
+  }
+}
+
+export async function getProfile() {
+  try {
+    const { data } = await apiClient.get('/profile/me')
+    return data
+  } catch {
+    return null
+  }
+}
+
+export async function saveProfile(payload) {
+  try {
+    const { data } = await apiClient.put('/profile/me', payload)
+    return data
+  } catch {
+    return payload
   }
 }

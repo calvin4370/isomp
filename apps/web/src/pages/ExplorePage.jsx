@@ -4,6 +4,7 @@ import { Button } from '../components/ui/Button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/Card'
 import { getFeed, getRecommendations } from '../services/api/features'
 import { useAccessibilityStore } from '../store/accessibilityStore'
+import { useFeedStore } from '../store/feedStore'
 
 const abilityOptions = [
   { key: 'visual', label: 'Visual Support' },
@@ -12,24 +13,27 @@ const abilityOptions = [
 ]
 
 export function ExplorePage() {
-  const [feed, setFeed] = useState([])
   const [selectedAbilities, setSelectedAbilities] = useState(['visual'])
-  const [isLoadingFeed, setIsLoadingFeed] = useState(true)
   const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false)
   const applyRecommendation = useAccessibilityStore((state) => state.applyRecommendation)
+  const feed = useFeedStore((state) => state.posts)
+  const hasLoaded = useFeedStore((state) => state.hasLoaded)
+  const setPosts = useFeedStore((state) => state.setPosts)
 
   useEffect(() => {
+    if (hasLoaded) {
+      return
+    }
     let mounted = true
     getFeed().then((posts) => {
       if (mounted) {
-        setFeed(posts)
-        setIsLoadingFeed(false)
+        setPosts(posts)
       }
     })
     return () => {
       mounted = false
     }
-  }, [])
+  }, [hasLoaded, setPosts])
 
   const selectedLabel = useMemo(
     () =>
@@ -84,7 +88,7 @@ export function ExplorePage() {
 
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-slate-900">Explore Feed</h2>
-        {isLoadingFeed ? (
+        {!hasLoaded ? (
           <p className="text-sm text-slate-500">Loading posts...</p>
         ) : (
           <div className="space-y-4">

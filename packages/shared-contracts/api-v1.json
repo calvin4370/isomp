@@ -31,6 +31,28 @@
     },
     {
       "method": "POST",
+      "path": "/posts",
+      "request": {
+        "author": "string",
+        "channel": "string",
+        "caption": "string",
+        "transcript": "string",
+        "imageDescription": "string"
+      },
+      "response": {
+        "id": "string",
+        "author": "string",
+        "channel": "string",
+        "caption": "string",
+        "transcript": "string",
+        "imageDescription": "string",
+        "likes": 0,
+        "comments": 0,
+        "shares": 0
+      }
+    },
+    {
+      "method": "POST",
       "path": "/onboarding/recommendations",
       "request": {
         "abilities": ["visual", "hearing", "motor"]
@@ -51,6 +73,30 @@
         "transcript": "string",
         "confidence": 0.79,
         "disclaimer": "string"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/profile/me",
+      "response": {
+        "handle": "string",
+        "bio": "string",
+        "followers": 0,
+        "following": 0
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/profile/me",
+      "request": {
+        "handle": "string",
+        "bio": "string"
+      },
+      "response": {
+        "handle": "string",
+        "bio": "string",
+        "followers": 0,
+        "following": 0
       }
     }
   ]

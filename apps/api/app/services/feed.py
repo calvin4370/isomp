@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from ..models import Post
+from .db import get_connection
 
 SAMPLE_FEED = [
     Post(
@@ -32,3 +35,62 @@ SAMPLE_FEED = [
         shares=17,
     ),
 ]
+
+
+def get_feed_posts() -> list[Post]:
+    with get_connection() as connection:
+        rows = connection.execute(
+            """
+            SELECT id, author, channel, caption, transcript, image_description, likes, comments, shares
+            FROM posts
+            ORDER BY created_at DESC
+            """
+        ).fetchall()
+    return [
+        Post(
+            id=row["id"],
+            author=row["author"],
+            channel=row["channel"],
+            caption=row["caption"],
+            transcript=row["transcript"],
+            imageDescription=row["image_description"],
+            likes=row["likes"],
+            comments=row["comments"],
+            shares=row["shares"],
+        )
+        for row in rows
+    ]
+
+
+def create_post(
+    author: str,
+    channel: str,
+    caption: str,
+    transcript: str,
+    image_description: str,
+) -> Post:
+    post_id = f"post-{int(datetime.utcnow().timestamp() * 1000)}"
+    created_at = datetime.utcnow().isoformat() + "Z"
+    with get_connection() as connection:
+        connection.execute(
+            """
+            INSERT INTO posts (
+                id, author, channel, caption, transcript, image_description, likes, comments, shares, created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, 0, 0, 0, ?)
+            """,
+            (post_id, author, channel, caption, transcript, image_description, created_at),
+        )
+        connection.commit()
+
+    post = Post(
+        id=post_id,
+        author=author,
+        channel=channel,
+        caption=caption,
+        transcript=transcript,
+        imageDescription=image_description,
+        likes=0,
+        comments=0,
+        shares=0,
+    )
+    return post

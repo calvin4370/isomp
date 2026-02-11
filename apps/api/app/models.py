@@ -26,6 +26,26 @@ class FeedResponse(BaseModel):
     posts: List[Post]
 
 
+class CreatePostRequest(BaseModel):
+    author: str = Field(min_length=1, max_length=80)
+    channel: str = Field(min_length=1, max_length=80)
+    caption: str = Field(min_length=1, max_length=600)
+    transcript: str = "Transcript will be generated from media/audio for this post."
+    imageDescription: str = "Image description will be generated when media is attached."
+
+
+class Profile(BaseModel):
+    handle: str
+    bio: str
+    followers: int = Field(default=0, ge=0)
+    following: int = Field(default=0, ge=0)
+
+
+class UpdateProfileRequest(BaseModel):
+    handle: str = Field(min_length=1, max_length=80)
+    bio: str = Field(min_length=1, max_length=400)
+
+
 class RecommendationRequest(BaseModel):
     abilities: List[Ability]
 

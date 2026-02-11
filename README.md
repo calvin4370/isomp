@@ -46,8 +46,11 @@ Backend runs on `http://localhost:8000`.
 
 - `GET /api/v1/health`
 - `GET /api/v1/posts/feed`
+- `POST /api/v1/posts`
 - `POST /api/v1/onboarding/recommendations`
 - `POST /api/v1/captions/transcribe`
+- `GET /api/v1/profile/me`
+- `PUT /api/v1/profile/me`
 
 ## Frontend pages
 
