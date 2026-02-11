@@ -54,6 +54,11 @@ Copy `apps/web/.env.example` to `apps/web/.env.local` if needed:
 VITE_API_BASE_URL=http://localhost:8000/api/v1
 ```
 
+## More Info
+
+- Product Requirements Document at `docs/product-requirements-document.md`
+- Design Document at `docs/design-doc.md`
+
 ## Notes
 
 - Accessibility settings persist in session storage.
