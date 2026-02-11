@@ -13,8 +13,7 @@ export function NavigationSidebar() {
   return (
     <aside className="sticky top-0 flex h-screen w-64 flex-col border-r border-slate-200 bg-white p-4">
       <div className="mb-6 px-2">
-        <p className="text-xs font-semibold uppercase tracking-widest text-indigo-600">ISOMP</p>
-        <h1 className="text-xl font-bold text-slate-900">Inclusive Social</h1>
+        <h1 className="text-3xl font-extrabold uppercase tracking-wide text-indigo-600">ISOMP</h1>
       </div>
       <nav className="space-y-2">
         {navItems.map((item) => (

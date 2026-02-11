@@ -54,7 +54,7 @@ export function PostCard({ post, isActive = false, onFocusRequest }) {
           <img
             src={post.mediaUrl}
             alt={`Post by ${post.author}`}
-            className="max-h-96 w-full rounded-md border border-slate-200 object-cover"
+            className="max-h-96 w-full rounded-md border border-slate-200 bg-slate-50 object-contain"
           />
         ) : null}
         <div className="flex items-center gap-2 text-sm text-slate-500">
