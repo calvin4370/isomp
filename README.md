@@ -1,6 +1,6 @@
 # ISOMP
 
-An Inclusive Social Media Platform.
+ISOMP is an inclusive social media platform celebrating specially-abled people. It helps specially-abled individuals become influencers by providing a platform tailored to their needs. The platform connects and brings together people of all abilities.
 
 ## Quick start
 
@@ -58,3 +58,4 @@ VITE_API_BASE_URL=http://localhost:8000/api/v1
 
 - Accessibility settings persist in session storage.
 - Frontend API calls include mock fallback behavior for offline/demo safety.
+- Cursor used to improve coding productivity
