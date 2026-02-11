@@ -1,4 +1,4 @@
-import { Compass, UserCircle2, Users2 } from 'lucide-react'
+import { Compass, PlusSquare, UserCircle2, Users2 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 import { cn } from '../../lib/utils'
 
@@ -6,6 +6,7 @@ const navItems = [
   { to: '/explore', label: 'Explore', icon: Compass },
   { to: '/profile', label: 'Profile', icon: UserCircle2 },
   { to: '/channels', label: 'Channels', icon: Users2 },
+  { to: '/create', label: 'Create', icon: PlusSquare },
 ]
 
 export function NavigationSidebar() {

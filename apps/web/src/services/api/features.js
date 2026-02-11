@@ -22,3 +22,15 @@ export async function getRecommendations(abilities) {
     return [...features]
   }
 }
+
+export async function transcribeMedia(mediaId) {
+  try {
+    const { data } = await apiClient.post('/captions/transcribe', {
+      mediaId,
+      language: 'en',
+    })
+    return data.transcript
+  } catch {
+    return 'This is a local fallback transcript generated for demo mode.'
+  }
+}

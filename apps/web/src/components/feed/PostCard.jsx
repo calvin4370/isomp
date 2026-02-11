@@ -3,11 +3,23 @@ import { useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
 import { Button } from '../ui/Button'
 import { useAccessibilityStore } from '../../store/accessibilityStore'
+import { transcribeMedia } from '../../services/api/features'
 
 export function PostCard({ post }) {
   const [showTranscript, setShowTranscript] = useState(false)
   const [showDescription, setShowDescription] = useState(false)
+  const [liveTranscript, setLiveTranscript] = useState(post.transcript)
+  const [isGeneratingTranscript, setIsGeneratingTranscript] = useState(false)
   const { transcript } = useAccessibilityStore((state) => state.settings)
+  const canTranscribe = transcript
+
+  const handleGenerateTranscript = async () => {
+    setIsGeneratingTranscript(true)
+    const value = await transcribeMedia(post.id)
+    setLiveTranscript(value)
+    setShowTranscript(true)
+    setIsGeneratingTranscript(false)
+  }
 
   return (
     <Card>
@@ -35,12 +47,19 @@ export function PostCard({ post }) {
           <Button size="sm" variant="outline" onClick={() => setShowTranscript((value) => !value)}>
             {showTranscript ? 'Hide transcript' : 'Show transcript'}
           </Button>
+          <Button
+            size="sm"
+            onClick={handleGenerateTranscript}
+            disabled={!canTranscribe || isGeneratingTranscript}
+          >
+            {isGeneratingTranscript ? 'Generating...' : 'Generate transcript'}
+          </Button>
         </div>
         {showDescription && (
           <p className="rounded-md bg-slate-50 p-3 text-sm text-slate-700">{post.imageDescription}</p>
         )}
         {showTranscript && transcript && (
-          <p className="rounded-md bg-slate-50 p-3 text-sm text-slate-700">{post.transcript}</p>
+          <p className="rounded-md bg-slate-50 p-3 text-sm text-slate-700">{liveTranscript}</p>
         )}
       </CardContent>
     </Card>
