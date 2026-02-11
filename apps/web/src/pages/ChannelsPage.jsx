@@ -66,7 +66,7 @@ export function ChannelsPage() {
             <p className="text-sm text-slate-700">{activeChannel.broadcast}</p>
             <p className="text-sm text-slate-700">Upcoming event: {activeChannel.event}</p>
             <Button variant="outline" onClick={() => setShowBookingModal(true)}>
-              Open Booking Modal
+              Make Booking
             </Button>
           </CardContent>
         </Card>
