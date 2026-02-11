@@ -4,8 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '../ui/Card'
 import { Button } from '../ui/Button'
 import { useAccessibilityStore } from '../../store/accessibilityStore'
 import { transcribeMedia } from '../../services/api/features'
+import { cn } from '../../lib/utils'
 
-export function PostCard({ post }) {
+export function PostCard({ post, isActive = false, onFocusRequest }) {
   const [showTranscript, setShowTranscript] = useState(false)
   const [showDescription, setShowDescription] = useState(false)
   const [liveTranscript, setLiveTranscript] = useState(post.transcript)
@@ -15,8 +16,8 @@ export function PostCard({ post }) {
   const [shares, setShares] = useState(post.shares)
   const [commentText, setCommentText] = useState('')
   const [isCommentBoxOpen, setIsCommentBoxOpen] = useState(false)
-  const { transcript } = useAccessibilityStore((state) => state.settings)
-  const canTranscribe = transcript
+  const settings = useAccessibilityStore((state) => state.settings)
+  const canTranscribe = settings.transcript && settings.speechToText
 
   const handleGenerateTranscript = async () => {
     setIsGeneratingTranscript(true)
@@ -36,7 +37,13 @@ export function PostCard({ post }) {
   }
 
   return (
-    <Card>
+    <Card
+      className={cn(
+        'transition-shadow',
+        isActive ? 'ring-2 ring-indigo-500 shadow-md' : 'hover:shadow-sm',
+      )}
+      onMouseEnter={onFocusRequest}
+    >
       <CardHeader>
         <p className="text-xs font-medium uppercase text-indigo-600">{post.channel}</p>
         <CardTitle>{post.author}</CardTitle>
@@ -82,10 +89,20 @@ export function PostCard({ post }) {
           </div>
         )}
         <div className="flex flex-wrap gap-2">
-          <Button size="sm" variant="outline" onClick={() => setShowDescription((value) => !value)}>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setShowDescription((value) => !value)}
+            disabled={!settings.imageToSpeech}
+          >
             {showDescription ? 'Hide image description' : 'Show image description'}
           </Button>
-          <Button size="sm" variant="outline" onClick={() => setShowTranscript((value) => !value)}>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => setShowTranscript((value) => !value)}
+            disabled={!settings.transcript}
+          >
             {showTranscript ? 'Hide transcript' : 'Show transcript'}
           </Button>
           <Button
@@ -99,9 +116,14 @@ export function PostCard({ post }) {
         {showDescription && (
           <p className="rounded-md bg-slate-50 p-3 text-sm text-slate-700">{post.imageDescription}</p>
         )}
-        {showTranscript && transcript && (
+        {showTranscript && settings.transcript && (
           <p className="rounded-md bg-slate-50 p-3 text-sm text-slate-700">{liveTranscript}</p>
         )}
+        {settings.signToCaption && post.hasSignLanguage && post.signCaption ? (
+          <p className="rounded-md border border-indigo-200 bg-indigo-50 p-3 text-sm text-indigo-900">
+            {post.signCaption}
+          </p>
+        ) : null}
       </CardContent>
     </Card>
   )

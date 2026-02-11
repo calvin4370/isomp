@@ -25,6 +25,17 @@ npm run web:dev
 
 Frontend runs on `http://localhost:5173`.
 
+### Teammate video mode (web only, fastest)
+
+If your team only needs to record the UI flow:
+
+```bash
+npm install
+npm run web:dev
+```
+
+The web app includes fallback demo data and can run even if backend is not running.
+
 ### 3) Run backend (separate terminal)
 
 ```bash

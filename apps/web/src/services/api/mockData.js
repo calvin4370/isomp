@@ -10,6 +10,9 @@ export const mockFeed = [
     likes: 124,
     comments: 32,
     shares: 8,
+    hasAudio: true,
+    hasSignLanguage: false,
+    signCaption: '',
   },
   {
     id: 'post-2',
@@ -22,6 +25,9 @@ export const mockFeed = [
     likes: 201,
     comments: 41,
     shares: 17,
+    hasAudio: true,
+    hasSignLanguage: true,
+    signCaption: 'Translated sign caption: We discuss identity, confidence, and visual storytelling growth.',
   },
 ]
 
