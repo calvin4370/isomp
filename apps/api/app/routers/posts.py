@@ -19,4 +19,6 @@ def add_post(payload: CreatePostRequest) -> Post:
         caption=payload.caption,
         transcript=payload.transcript,
         image_description=payload.imageDescription,
+        media_type=payload.mediaType,
+        media_url=payload.mediaUrl,
     )

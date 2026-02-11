@@ -17,6 +17,8 @@ class Post(BaseModel):
     caption: str
     transcript: str
     imageDescription: str
+    mediaType: str | None = None
+    mediaUrl: str | None = None
     likes: int = Field(default=0, ge=0)
     comments: int = Field(default=0, ge=0)
     shares: int = Field(default=0, ge=0)
@@ -32,6 +34,8 @@ class CreatePostRequest(BaseModel):
     caption: str = Field(min_length=1, max_length=600)
     transcript: str = "Transcript will be generated from media/audio for this post."
     imageDescription: str = "Image description will be generated when media is attached."
+    mediaType: str | None = None
+    mediaUrl: str | None = None
 
 
 class Profile(BaseModel):

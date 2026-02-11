@@ -50,6 +50,13 @@ export function PostCard({ post, isActive = false, onFocusRequest }) {
         <p className="text-sm text-slate-700">{post.caption}</p>
       </CardHeader>
       <CardContent className="space-y-4">
+        {post.mediaType === 'image' && post.mediaUrl ? (
+          <img
+            src={post.mediaUrl}
+            alt={`Post by ${post.author}`}
+            className="max-h-96 w-full rounded-md border border-slate-200 object-cover"
+          />
+        ) : null}
         <div className="flex items-center gap-2 text-sm text-slate-500">
           <button
             type="button"

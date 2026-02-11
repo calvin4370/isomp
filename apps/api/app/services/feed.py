@@ -41,7 +41,7 @@ def get_feed_posts() -> list[Post]:
     with get_connection() as connection:
         rows = connection.execute(
             """
-            SELECT id, author, channel, caption, transcript, image_description, likes, comments, shares
+            SELECT id, author, channel, caption, transcript, image_description, media_type, media_url, likes, comments, shares
             FROM posts
             ORDER BY created_at DESC
             """
@@ -54,6 +54,8 @@ def get_feed_posts() -> list[Post]:
             caption=row["caption"],
             transcript=row["transcript"],
             imageDescription=row["image_description"],
+            mediaType=row["media_type"],
+            mediaUrl=row["media_url"],
             likes=row["likes"],
             comments=row["comments"],
             shares=row["shares"],
@@ -68,6 +70,8 @@ def create_post(
     caption: str,
     transcript: str,
     image_description: str,
+    media_type: str | None,
+    media_url: str | None,
 ) -> Post:
     post_id = f"post-{int(datetime.utcnow().timestamp() * 1000)}"
     created_at = datetime.utcnow().isoformat() + "Z"
@@ -75,10 +79,10 @@ def create_post(
         connection.execute(
             """
             INSERT INTO posts (
-                id, author, channel, caption, transcript, image_description, likes, comments, shares, created_at
-            ) VALUES (?, ?, ?, ?, ?, ?, 0, 0, 0, ?)
+                id, author, channel, caption, transcript, image_description, media_type, media_url, likes, comments, shares, created_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0, ?)
             """,
-            (post_id, author, channel, caption, transcript, image_description, created_at),
+            (post_id, author, channel, caption, transcript, image_description, media_type, media_url, created_at),
         )
         connection.commit()
 
@@ -89,6 +93,8 @@ def create_post(
         caption=caption,
         transcript=transcript,
         imageDescription=image_description,
+        mediaType=media_type,
+        mediaUrl=media_url,
         likes=0,
         comments=0,
         shares=0,

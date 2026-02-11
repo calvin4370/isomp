@@ -25,6 +25,8 @@ def initialize_database() -> None:
                 caption TEXT NOT NULL,
                 transcript TEXT NOT NULL,
                 image_description TEXT NOT NULL,
+                media_type TEXT,
+                media_url TEXT,
                 likes INTEGER NOT NULL DEFAULT 0,
                 comments INTEGER NOT NULL DEFAULT 0,
                 shares INTEGER NOT NULL DEFAULT 0,
@@ -32,6 +34,12 @@ def initialize_database() -> None:
             )
             """
         )
+        post_columns = {row[1] for row in cursor.execute("PRAGMA table_info(posts)").fetchall()}
+        if "media_type" not in post_columns:
+            cursor.execute("ALTER TABLE posts ADD COLUMN media_type TEXT")
+        if "media_url" not in post_columns:
+            cursor.execute("ALTER TABLE posts ADD COLUMN media_url TEXT")
+
         cursor.execute(
             """
             CREATE TABLE IF NOT EXISTS profile (

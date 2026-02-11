@@ -22,6 +22,8 @@ export async function createPost(payload) {
       caption: payload.caption,
       transcript: payload.transcript,
       imageDescription: payload.imageDescription,
+      mediaType: payload.mediaType ?? null,
+      mediaUrl: payload.mediaUrl ?? null,
       likes: 0,
       comments: 0,
       shares: 0,

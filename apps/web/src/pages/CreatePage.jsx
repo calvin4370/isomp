@@ -15,22 +15,56 @@ export function CreatePage() {
   const [isPublishing, setIsPublishing] = useState(false)
   const [author, setAuthor] = useState('ISOMP Creator')
   const [publishMessage, setPublishMessage] = useState('')
+  const [mediaDataUrl, setMediaDataUrl] = useState('')
+  const [mediaError, setMediaError] = useState('')
   const settings = useAccessibilityStore((state) => state.settings)
   const addPost = useFeedStore((state) => state.addPost)
 
+  const requiresImage = contentType === 'Image'
+
+  const handleMediaSelect = (event) => {
+    const file = event.target.files?.[0]
+    if (!file) {
+      setMediaDataUrl('')
+      setMediaError('')
+      return
+    }
+    if (requiresImage && !file.type.startsWith('image/')) {
+      setMediaError('Please choose an image file for Image posts.')
+      setMediaDataUrl('')
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = () => {
+      setMediaDataUrl(String(reader.result ?? ''))
+      setMediaError('')
+    }
+    reader.readAsDataURL(file)
+  }
+
   const handlePublish = async () => {
+    if (requiresImage && !mediaDataUrl) {
+      setMediaError('Please upload an image before publishing an Image post.')
+      return
+    }
     setIsPublishing(true)
     const payload = {
       author: author.trim() || 'ISOMP Creator',
       channel: contentType.replace(/\s+/g, '') + 'Channel',
       caption,
       transcript: 'Transcript will be generated from media/audio for this post.',
-      imageDescription: 'Image description will be generated when media is attached.',
+      imageDescription: requiresImage
+        ? 'Uploaded image included in this post. Description generation placeholder for MVP.'
+        : 'Image description will be generated when media is attached.',
+      mediaType: requiresImage ? 'image' : null,
+      mediaUrl: requiresImage ? mediaDataUrl : null,
     }
     const post = await createPost(payload)
     addPost(post)
     setIsPublishing(false)
     setCaption('')
+    setMediaDataUrl('')
+    setMediaError('')
     setPublishMessage('Post published. Redirecting to Explore...')
     navigate('/explore')
   }
@@ -80,6 +114,26 @@ export function CreatePage() {
               placeholder="Share your day-in-the-life moment..."
               className="min-h-28 w-full rounded-md border border-slate-300 p-3 text-sm focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200"
             />
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="media" className="text-sm font-medium text-slate-700">
+              Upload media {requiresImage ? '(image required for Image posts)' : '(optional)'}
+            </label>
+            <input
+              id="media"
+              type="file"
+              accept={requiresImage ? 'image/*' : 'image/*,video/*'}
+              onChange={handleMediaSelect}
+              className="block w-full rounded-md border border-slate-300 bg-white p-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-indigo-600 file:px-3 file:py-2 file:text-white"
+            />
+            {mediaError ? <p className="text-sm text-rose-600">{mediaError}</p> : null}
+            {mediaDataUrl ? (
+              <img
+                src={mediaDataUrl}
+                alt="Post media preview"
+                className="max-h-60 w-full rounded-md border border-slate-200 object-cover"
+              />
+            ) : null}
           </div>
           <Button onClick={handlePublish} disabled={isPublishing || !caption.trim()}>
             {isPublishing ? 'Publishing...' : 'Publish Prototype Post'}
