@@ -1,2 +1,10 @@
 # Cursor rules
 .cursor/
+node_modules/
+dist/
+.DS_Store
+*.pyc
+__pycache__/
+.venv/
+apps/web/.env
+apps/web/.env.local

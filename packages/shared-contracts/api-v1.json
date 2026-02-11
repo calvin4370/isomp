@@ -1,0 +1,57 @@
+{
+  "version": "0.1.0",
+  "baseUrl": "/api/v1",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "response": {
+        "status": "ok",
+        "service": "isomp-api"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/posts/feed",
+      "response": {
+        "posts": [
+          {
+            "id": "string",
+            "author": "string",
+            "channel": "string",
+            "caption": "string",
+            "transcript": "string",
+            "imageDescription": "string",
+            "likes": 0,
+            "comments": 0,
+            "shares": 0
+          }
+        ]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/onboarding/recommendations",
+      "request": {
+        "abilities": ["visual", "hearing", "motor"]
+      },
+      "response": {
+        "recommendedFeatures": ["textToSpeech", "imageToSpeech"]
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/captions/transcribe",
+      "request": {
+        "mediaId": "string",
+        "language": "en"
+      },
+      "response": {
+        "mediaId": "string",
+        "transcript": "string",
+        "confidence": 0.79,
+        "disclaimer": "string"
+      }
+    }
+  ]
+}
