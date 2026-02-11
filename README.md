@@ -62,5 +62,5 @@ VITE_API_BASE_URL=http://localhost:8000/api/v1
 ## Notes
 
 - Accessibility settings persist in session storage.
-- Frontend API calls include mock fallback behavior for offline/demo safety.
+- Frontend API calls include mock fallback behavior for offline/demo without running backend server.
 - Cursor used to improve coding productivity
