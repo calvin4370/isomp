@@ -1,0 +1,29 @@
+{
+  "name": "isomp",
+  "version": "1.0.0",
+  "description": "ISOMP monorepo for web and API apps.",
+  "scripts": {
+    "dev": "npm run web:dev",
+    "web:dev": "npm run dev --workspace apps/web",
+    "web:build": "npm run build --workspace apps/web",
+    "web:lint": "npm run lint --workspace apps/web",
+    "api:dev": "python -m uvicorn apps.api.app.main:app --reload --app-dir .",
+    "api:check": "python -m compileall apps/api/app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/calvin4370/isomp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/calvin4370/isomp/issues"
+  },
+  "homepage": "https://github.com/calvin4370/isomp#readme",
+  "private": true,
+  "workspaces": [
+    "apps/web"
+  ]
+}
