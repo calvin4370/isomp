@@ -54,7 +54,7 @@ export function CreatePage() {
       caption,
       transcript: 'Transcript will be generated from media/audio for this post.',
       imageDescription: requiresImage
-        ? 'Uploaded image included in this post. Description generation placeholder for MVP.'
+        ? 'Uploaded image included in this post. Description generation placeholder.'
         : 'Image description will be generated when media is attached.',
       mediaType: requiresImage ? 'image' : null,
       mediaUrl: requiresImage ? mediaDataUrl : null,

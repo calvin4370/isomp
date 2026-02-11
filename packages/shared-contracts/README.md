@@ -4,7 +4,7 @@ This folder keeps frontend and backend payload contracts aligned during rapid it
 
 ## Current contract artifacts
 
-- `api-v1.json` - reference schema for MVP REST endpoints.
+- `api-v1.json` - reference schema for REST endpoints.
 
 ## Notes
 

@@ -1,6 +1,6 @@
 # ISOMP API
 
-FastAPI backend for ISOMP MVP endpoints.
+FastAPI backend for ISOMP endpoints.
 
 ## Run locally
 

@@ -127,7 +127,7 @@ export function ExplorePage() {
     <section className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Adaptive Onboarding (MVP)</CardTitle>
+          <CardTitle>Adaptive Onboarding</CardTitle>
           <CardDescription>Choose support needs and auto-enable recommended features.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">

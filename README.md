@@ -5,7 +5,7 @@ Inclusive Social Media Platform monorepo.
 ## Monorepo layout
 
 - `apps/web` - React 18 + Vite frontend (Tailwind, Zustand, Axios, Lucide).
-- `apps/api` - FastAPI backend (Pydantic schemas, MVP endpoints).
+- `apps/api` - FastAPI backend (Pydantic schemas, core endpoints).
 - `packages/shared-contracts` - lightweight API payload contract artifacts.
 - `docs` - hackathon runbook and delivery notes.
 
@@ -53,7 +53,7 @@ Backend runs on `http://localhost:8000`.
 - `npm run api:dev` - start backend with uvicorn.
 - `npm run api:check` - compile-check backend Python files.
 
-## MVP endpoints
+## API endpoints
 
 - `GET /api/v1/health`
 - `GET /api/v1/posts/feed`
